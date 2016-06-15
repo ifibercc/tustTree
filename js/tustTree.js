@@ -1,31 +1,43 @@
+/**
+ *  author: Lemoo
+ *  email: ifibercc@gmail.com
+ *  date: 2016-06-15
+ *  version: 0.0.1
+ */
+'use strict';
 var tustTree = function (options) {
     var me = this;
     if (options.id === undefined || options.id === '') {
         console.warn('tree id not set!!');
         return;
     }
+    if (options.url === undefined || options.url === '') {
+        console.warn('tree url not set!!');
+        return;
+    }
     // tree setting
-    var onRename = options._onEdit || null;
     var onClick = options._onClick || null;
     var onCheck = options._onCheck || null;
-    var beforeRemove = options._beforerRemove || null;
     // 是否显示tree的checkbox
     var checkEnable = options.check || false;
     // 若显示checkbox且relate为true则父子关联，否则不关联
-    var chkboxType = checkEnable && options.relate &&  { 'Y': 'ps', 'N': 'ps' } || { 'Y': '', 'N': '' };
+    var chkboxType = checkEnable && options.relate && { 'Y': 'ps', 'N': 'ps' } || { 'Y': '', 'N': '' };
     // 是否开启编辑模式
-    var editEnable = options.edit !== '000' && true || false;
-    if (options.edit && typeof options.edit === 'string') {
-        var addBtnFlag = !!options.edit[0];
-        var editBtnFlag = !!options.edit[1];
-        var removeBtnFlag = !!options.edit[2];
+    var editEnable = options.btn !== '000' && true || false;
+    if (options.btn && typeof options.btn === 'string') {
+        var addBtnFlag = options.btn[0] === '0' ? false : true;
+        var editBtnFlag = options.btn[1] === '0' ? false : true;
+        var removeBtnFlag = options.btn[2] === '0' ? false : true;
     }
+    var drag = options.drag || true;
     var setting = {
         callback: {
+            beforeRename: beforeRename,
             onRename: onRename,
             onClick: onClick,
             onCheck: onCheck,
-            beforeRemove: beforeRemove
+            beforeRemove: beforeRemove,
+            onRemove: onRemove
         },
         check: {
             enable: checkEnable,
@@ -63,11 +75,13 @@ var tustTree = function (options) {
     };
 
 
-// tree node
+    // tree node
     var ctrlUrl,
         disUrl,
+        addUrl,
         editUrl,
-        removeUrl;
+        removeUrl,
+        dragUrl;
     // url可以设置controller的地址然后后台拼接，也可传输指定字符数组
     if (options.url === undefined || options.url === '') {
         console.warn('data url not set!!');
@@ -78,22 +92,24 @@ var tustTree = function (options) {
             disUrl    = ctrlUrl + '/ztreeDis';
             addUrl    = ctrlUrl + '/ztreeAdd';
             editUrl   = ctrlUrl + '/ztreeEdit';
-            removeUrl = ctrlUrl + '/ztreeRemove';
+            removeUrl = ctrlUrl + '/ztreeDel';
+            dragUrl   = ctrlUrl + '/ztreeDrag';
         } else {
             // 如果是字符数组，则1为显示2为新增3为编辑4为删除
             disUrl    = options.url[0] || '';
             addUrl    = options.url[1] || '';
             editUrl   = options.url[2] || '';
             removeUrl = options.url[3] || '';
+            dragUrl   = options.url[4] || '';
         }
     }
     var zTreeObj;
     // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
     $.post(disUrl, function (data) {
         var data = [
-            {Name:"test1", Id: '1', PId: '0', open:true},
-            {Name:"test1", Id: '2', PId: '1', open:true},
-            {Name:"test1", Id: '3', PId: '1', open:true},
+            {Name:"test1", Id: '1', PId: '0', open:true, addBtnFlag: false},
+            {Name:"test1", Id: '2', PId: '1', open:true, editBtnFlag: false},
+            {Name:"test1", Id: '3', PId: '1', open:true, removeBtnFlag: false},
             {Name:"test1", Id: '4', PId: '1', open:true}
         ];
         zTreeObj = $.fn.zTree.init($('#' + options.id), setting, data);
@@ -112,8 +128,11 @@ var tustTree = function (options) {
         if (btn) btn.bind("click", function () {
             var zTree = $.fn.zTree.getZTreeObj(options.id);
             zTree.addNodes(treeNode, { Id: guid, PId: treeNode.Id, Name: "新增" + (me.newCount++) });
-            $.post(addUrl, { Id: guid, Name: "新增" + (me.newCount-1), PId: treeNode.Id }, function (data) {
-                    DWZ.ajaxDone(data);
+            $.post(addUrl, {
+                Id: guid,
+                Name: "新增" + (me.newCount-1), PId: treeNode.Id
+                }, function (data) {
+                    DWZ && DWZ.ajaxDone(data);
             });
             return false;
         });
@@ -130,30 +149,120 @@ var tustTree = function (options) {
     };
     // 每个节点是否显示新增按钮
     function showAddBtn(treeId, treeNode) {
-        if (addBtnFlag === true || treeNode.addBtnFlag === true) {
-            console.info(1);
-            return addHoverDom(treeId, treeNode);
+        if (treeNode.addBtnFlag !== null && treeNode.addBtnFlag !== undefined) {
+            if (treeNode.addBtnFlag === true) {
+                return addHoverDom(treeId, treeNode);
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            if (addBtnFlag) {
+                return addHoverDom(treeId, treeNode);
+            } else {
+                return null;
+            }
         }
     }
     // 每个节点removehover方法
     function hiddeAddBtn(treeId, treeNode) {
-        if (addBtnFlag === true || treeNode.addBtnFlag === true) {
-            return removeHoverDom(treeId, treeNode);
+        if (treeNode.addBtnFlag !== null && treeNode.addBtnFlag !== undefined) {
+            if (treeNode.addBtnFlag === true) {
+                return removeHoverDom(treeId, treeNode);
+            } else {
+                return null;
+            }
         } else {
-            return null;
+            if (addBtnFlag) {
+                return removeHoverDom(treeId, treeNode);
+            } else {
+                return null;
+            }
         }
     }
     // 每个节点是否显示编辑按钮
     function showRenameBtn(treeId, treeNode) {
         // 若treeNode.editBtnFlag为空则是主树默认值，否则按节点值
-        return treeNode.editBtnFlag || editBtnFlag;
+        if (treeNode.editBtnFlag !== null && treeNode.editBtnFlag !== undefined) {
+            if (treeNode.editBtnFlag === true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (editBtnFlag) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
     // 每个节点是否显示删除按钮
     function showRemoveBtn(treeId, treeNode) {
         // 若treeNode.removeBtnFlag为空则是主树默认值，否则按节点值
-        return treeNode.removeBtnFlag || removeBtnFlag;
+        if (treeNode.removeBtnFlag !== null && treeNode.removeBtnFlag !== undefined) {
+            if (treeNode.removeBtnFlag === true) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            if (editBtnFlag) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    // 修改保存前判断是否合法
+    function beforeRename(treeId, treeNode, newName) {
+        if (newName === '') {
+            alert("节点名称不能为空.");
+            var zTree = $.fn.zTree.getZTreeObj(options.id);
+            setTimeout(function () { zTree.editName(treeNode) }, 10);
+            return false;
+        }
+        return true;
+    }
+    // 保存数据
+    function onRename(e, treeId, treeNode, isCancel) {
+        $.post(editUrl, {
+            Id: treeNode.Id,
+            Name: treeNode.Name
+        }, function (data) {
+                // DWZ && DWZ提示框的方法
+                DWZ && DWZ.ajaxDone(data);
+        });
+    }
+    // 删除前弹框确认
+    function beforeRemove(treeId, treeNode) {
+        var zTree = $.fn.zTree.getZTreeObj(options.id);
+        zTree.selectNode(treeNode);
+        return confirm("确认删除节点 -- " + treeNode.Name + " 吗？");
+    }
+    // 保存数据
+    function onRemove(e, treeId, treeNode) {
+        $.post(removeUrl, {
+            Id: treeNode.Id
+            }, function (data) {
+                DWZ && DWZ.ajaxDone(data);
+        });
+    }
+    // 判断是否允许拖拽
+    function beforeDrag(treeId, treeNodes) {
+        return drag;
+    }
+    // 拖拽完成的事件
+    function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+        $.post(dragUrl, {
+            Id: treeNodes[0].Id,
+            PId: targetNode.Id
+            }, function (data) {
+                DWZ && DWZ.ajaxDone(data);
+                if (true) {
+                    // todo 判断是否允许放下，根据返回值判断
+                }
+        });
+        return true;
     }
 };
 tustTree.prototype.constructor = tustTree;

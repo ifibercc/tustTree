@@ -1,15 +1,13 @@
 var options = {
     id: 'treeDemo',
     url: 'xx',
-    edit: '111'
+    btn: '111',
+    check: true,
+    relate: true,
+    _onCheck: Event,
+    _onClick: Event
 };
 var myTree = new tustTree(options);
-// check:
-// relate:
-// edit:
-// drag:
-// _onclick:
-// _ondrag:
-// _onadd:
-// _onrename:
-// _onremove:
+function Event(e) {
+    console.info(e);
+}
