@@ -97,6 +97,6 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
 - PId：String，父节点的guid
 - Url：String，节点的url属性
 - open： Boolean，是否展开节点，true为展开
-- addBtnFlag：Boolean，是否显示新增按钮，优先级高于option中的btn值
-- editBtnFlag：Boolean，是否显示编辑按钮，优先级高于option中的btn值
-- removeBtnFlag：Boolean，是否显示删除按钮，优先级高于option中的btn值
+- addBtnFlag：Boolean，是否显示新增按钮，true为显示，优先级高于option中的btn值
+- editBtnFlag：Boolean，是否显示编辑按钮，true为显示，优先级高于option中的btn值
+- removeBtnFlag：Boolean，是否显示删除按钮，true为显示，优先级高于option中的btn值
