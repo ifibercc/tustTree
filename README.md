@@ -1,24 +1,27 @@
 # tustTree
 tustTree是基于ztree的封装，利用组合继承等方式使开发人员可以更好的操作树。
 ## Useage
-1. 在您的项目中引入以下CSS文件：
-``` html
-    <link rel="stylesheet" href="css/zTreeStyle.css">
-```
-**同级目录需包含ztree的img图标文件夹**
+1. 在您的项目中引入以下CSS文件：  
 
-2. 在您的项目中引入以下JavaScript文件
+ ``` html
+    <link rel="stylesheet" href="css/zTreeStyle.css">
+ ```
+ **同级目录需包含ztree的img图标文件夹**
+
+2. 在您的项目中引入以下JavaScript文件  
+
  ``` html
  <script type="text/javascript" src="js/jquery-1.4.4.min.js"></script>
  <script type="text/javascript" src="js/jquery.ztree.all.min.js"></script>
  <script type="text/javascript" src="js/tustTree.js"></script>
-```
+ ```
  - jquery为ztree的依赖文件，需要首先引入
  - ztree.all.js包含了core,check,edit等ztree的所有高级特性
  - tustTree.js为封装的主文件，需要最后引入
 
 ## 基础使用
-1. 定义tree的容器
+1. 定义tree的容器  
+
  ``` html
     <div>
         <ul id="treeDemo" class="ztree"></ul>
