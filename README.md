@@ -1,5 +1,7 @@
 # tustTree
-tustTree是基于ztree的封装，利用组合继承等方式使开发人员可以更好的操作树。
+version: 0.0.2
+tustTree是基于ztree的封装，利用组合继承等方式使开发人员可以更好的操作树。  
+
 ## Useage
 1. 在您的项目中引入以下CSS文件：  
 
