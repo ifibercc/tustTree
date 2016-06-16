@@ -29,7 +29,12 @@ var tustTree = function (options) {
         var editBtnFlag = options.btn[1] === '0' ? false : true;
         var removeBtnFlag = options.btn[2] === '0' ? false : true;
     }
-    var drag = options.drag || true;
+    var drag;
+    if (options.drag !== undefined && options.drag !== null) {
+        drag = options.drag;
+    } else {
+        drag = true;
+    }
     var setting = {
         callback: {
             beforeRename: beforeRename,
@@ -37,7 +42,9 @@ var tustTree = function (options) {
             onClick: onClick,
             onCheck: onCheck,
             beforeRemove: beforeRemove,
-            onRemove: onRemove
+            onRemove: onRemove,
+            beforeDrag: beforeDrag,
+            beforeDrop: beforeDrop
         },
         check: {
             enable: checkEnable,
@@ -89,11 +96,11 @@ var tustTree = function (options) {
     } else {
         if (typeof options.url === 'string') {
             ctrlUrl   = options.url;
-            disUrl    = ctrlUrl + '/ztreeDis';
-            addUrl    = ctrlUrl + '/ztreeAdd';
-            editUrl   = ctrlUrl + '/ztreeEdit';
-            removeUrl = ctrlUrl + '/ztreeDel';
-            dragUrl   = ctrlUrl + '/ztreeDrag';
+            disUrl    = '/' + ctrlUrl + '/ztreeDis';
+            addUrl    = '/' + ctrlUrl + '/ztreeAdd';
+            editUrl   = '/' + ctrlUrl + '/ztreeEdit';
+            removeUrl = '/' + ctrlUrl + '/ztreeDel';
+            dragUrl   = '/' + ctrlUrl + '/ztreeDrag';
         } else {
             // 如果是字符数组，则1为显示2为新增3为编辑4为删除
             disUrl    = options.url[0] || '';
@@ -206,7 +213,7 @@ var tustTree = function (options) {
                 return false;
             }
         } else {
-            if (editBtnFlag) {
+            if (removeBtnFlag) {
                 return true;
             } else {
                 return false;
