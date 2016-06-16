@@ -63,7 +63,7 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
 
 ## 事件
 1. click事件  
- 在options中指定相应的_onClick方法
+ 在options中指定相应的_onClick方法  
  ``` javascript
     function Event(event, treeId, treeNode) {
         console.info(e);
@@ -73,7 +73,7 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
  - treeId：String，对应ztree的treeId，便于用户操作
  - treeNode：JSON，被点击的节点JSON数据对象  
 2. check事件  
- 在options中制定相应的_onCheck方法
+ 在options中制定相应的_onCheck方法  
  ``` javascript
     function Event(event, treeId, treeNode) {
         console.info(e);
