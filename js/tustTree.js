@@ -106,12 +106,12 @@ var tustTree = function (options) {
     var zTreeObj;
     // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
     $.post(disUrl, function (data) {
-        var data = [
-            {Name:"test1", Id: '1', PId: '0', open:true, addBtnFlag: false},
-            {Name:"test1", Id: '2', PId: '1', open:true, editBtnFlag: false},
-            {Name:"test1", Id: '3', PId: '1', open:true, removeBtnFlag: false},
-            {Name:"test1", Id: '4', PId: '1', open:true}
-        ];
+        // var data = [
+        //     {Name:"test1", Id: '1', PId: '0', open:true, addBtnFlag: false},
+        //     {Name:"test1", Id: '2', PId: '1', open:true, editBtnFlag: false},
+        //     {Name:"test1", Id: '3', PId: '1', open:true, removeBtnFlag: false},
+        //     {Name:"test1", Id: '4', PId: '1', open:true}
+        // ];
         zTreeObj = $.fn.zTree.init($('#' + options.id), setting, data);
         me.currentTree = zTreeObj;
     });
