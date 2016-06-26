@@ -16,6 +16,7 @@ var tustTree = function (options) {
         return;
     }
     // tree setting
+    var beforeClic = options._beforeClick || null;
     var onClick = options._onClick || null;
     var onCheck = options._onCheck || null;
     // 是否显示tree的checkbox
@@ -39,6 +40,7 @@ var tustTree = function (options) {
         callback: {
             beforeRename: beforeRename,
             onRename: onRename,
+            beforeClick: beforeClick,
             onClick: onClick,
             onCheck: onCheck,
             beforeRemove: beforeRemove,
