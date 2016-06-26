@@ -16,7 +16,7 @@ var tustTree = function (options) {
         return;
     }
     // tree setting
-    var beforeClic = options._beforeClick || null;
+    var beforeClick = options._beforeClick || null;
     var onClick = options._onClick || null;
     var onCheck = options._onCheck || null;
     // 是否显示tree的checkbox
