@@ -61,6 +61,8 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
        // Boolean，默认值false，控制是否父子节点相关，true为相关
        _onCheck: Event,
        // Function，默认值null，节点的checkbox勾选事件，下面详细介绍
+       _beforeClick: Event,
+        // Function，默认值null，return true才会执行click事件
        _onClick: Event
        // Function，默认值null，节点的click鼠标单机事件，下面详细介绍
    };
