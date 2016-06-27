@@ -4,6 +4,9 @@ var options = {
     btn: '111',
     check: true,
     relate: true,
+    req: {
+        glfid: '123'
+    },
     _onCheck: Event,
     _onClick: Event
 };

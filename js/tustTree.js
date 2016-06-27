@@ -19,6 +19,8 @@ var tustTree = function (options) {
     var beforeClick = options._beforeClick || null;
     var onClick = options._onClick || null;
     var onCheck = options._onCheck || null;
+    // post请求参数
+    var req = options.req || null;
     // 是否显示tree的checkbox
     var checkEnable = options.check || false;
     // 若显示checkbox且relate为true则父子关联，否则不关联
@@ -114,7 +116,7 @@ var tustTree = function (options) {
     }
     var zTreeObj;
     // zTree 的数据属性，深入使用请参考 API 文档（zTreeNode 节点数据详解）
-    $.post(disUrl, function (data) {
+    $.post(disUrl, req, function (data) {
         // var data = [
         //     {Name:"test1", Id: '1', PId: '0', open:true, addBtnFlag: false},
         //     {Name:"test1", Id: '2', PId: '1', open:true, editBtnFlag: false},
