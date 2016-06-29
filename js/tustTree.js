@@ -161,68 +161,36 @@ var tustTree = function (options) {
     };
     // 每个节点是否显示新增按钮
     function showAddBtn(treeId, treeNode) {
-        if (treeNode.addBtnFlag !== null && treeNode.addBtnFlag !== undefined) {
-            if (treeNode.addBtnFlag === true) {
-                return addHoverDom(treeId, treeNode);
-            } else {
-                return null;
-            }
+        if (addBtnFlag === true && treeNode.addBtnFlag === true) {
+            return addHoverDom(treeId, treeNode);
         } else {
-            if (addBtnFlag) {
-                return addHoverDom(treeId, treeNode);
-            } else {
-                return null;
-            }
+            return null;
         }
     }
     // 每个节点removehover方法
     function hiddeAddBtn(treeId, treeNode) {
-        if (treeNode.addBtnFlag !== null && treeNode.addBtnFlag !== undefined) {
-            if (treeNode.addBtnFlag === true) {
-                return removeHoverDom(treeId, treeNode);
-            } else {
-                return null;
-            }
+        if (addBtnFlag === true && treeNode.addBtnFlag === true) {
+            return removeHoverDom(treeId, treeNode);
         } else {
-            if (addBtnFlag) {
-                return removeHoverDom(treeId, treeNode);
-            } else {
-                return null;
-            }
+            return null;
         }
     }
     // 每个节点是否显示编辑按钮
     function showRenameBtn(treeId, treeNode) {
         // 若treeNode.editBtnFlag为空则是主树默认值，否则按节点值
-        if (treeNode.editBtnFlag !== null && treeNode.editBtnFlag !== undefined) {
-            if (treeNode.editBtnFlag === true) {
-                return true;
-            } else {
-                return false;
-            }
+        if (editBtnFlag === true && treeNode.editBtnFlag === true) {
+            return true;
         } else {
-            if (editBtnFlag) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
     // 每个节点是否显示删除按钮
     function showRemoveBtn(treeId, treeNode) {
         // 若treeNode.removeBtnFlag为空则是主树默认值，否则按节点值
-        if (treeNode.removeBtnFlag !== null && treeNode.removeBtnFlag !== undefined) {
-            if (treeNode.removeBtnFlag === true) {
-                return true;
-            } else {
-                return false;
-            }
+        if (removeBtnFlag === true && treeNode.removeBtnFlag === true) {
+            return true;
         } else {
-            if (removeBtnFlag) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
     }
     // 修改保存前判断是否合法
