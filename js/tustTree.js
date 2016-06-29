@@ -125,6 +125,7 @@ var tustTree = function (options) {
         // ];
         zTreeObj = $.fn.zTree.init($('#' + options.id), setting, data);
         me.currentTree = zTreeObj;
+        options._onComplete && options._onComplete();
     });
     // 新增按钮hover方法
     me.newCount = 1;

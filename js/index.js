@@ -8,7 +8,8 @@ var options = {
         glfid: '123'
     },
     _onCheck: Event,
-    _onClick: Event
+    _onClick: Event,
+    _onComplete: Event
 };
 var myTree = new tustTree(options);
 function Event(e) {

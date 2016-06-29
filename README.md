@@ -59,12 +59,19 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
        // Boolean，默认值false，控制是否显示节点的checkbox，true为显示
        relate: true,
        // Boolean，默认值false，控制是否父子节点相关，true为相关
+       req: {
+           id: '1234',
+           content: 'xxx'
+       },
+       // Object，默认值为null，获取树节点post请求时的请求参数，为一个object类型，可以传入多个值
        _onCheck: Event,
        // Function，默认值null，节点的checkbox勾选事件，下面详细介绍
        _beforeClick: Event,
-        // Function，默认值null，return true才会执行click事件
-       _onClick: Event
+        // Function，默认值null，如果设置了_beforeClick且返回false，则_onClick不会触发
+       _onClick: Event,
        // Function，默认值null，节点的click鼠标单机事件，下面详细介绍
+       _onComplete: Event
+       // Function，默认值null，树加载完毕的事件，非标准js事件对象
    };
 ```
 
@@ -82,7 +89,7 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
  - treeNode：JSON，被点击的节点JSON数据对象
 
 2. check事件  
- 在options中制定相应的_onCheck方法  
+ 在options中指定相应的_onCheck方法  
 
  ``` javascript
     function Event(event, treeId, treeNode) {
@@ -92,7 +99,26 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
  - event：js event对象，标准的js event对象
  - treeId：String，对应ztree的treeId，便于用户操作
  - treeNode：JSON，被点击的节点JSON数据对象
-
+3. beforeclick事件
+ 在options中指定相应的_beforeClick方法
+ ``` javascript
+    function Event(event, treeId, treeNode) {
+        if (treeId === '123') {
+            return true;
+        } else {
+            return false;
+        }        
+    }
+ ```
+ 若指定了_beforeClick方法，且返回值为false，则_onClick不会执行
+4. oncomplete事件
+ 在options中指定相应的_onComplete方法
+ ``` javascript
+    function Event() {
+        treeObj.expandAll(true);
+    }
+ ```
+ 非js标准事件对象，无event返回值，可以用来展开全部节点等操作
 ## node数据
 以下为后端数据库中相应的字段：
 - Id：String，节点的guid
