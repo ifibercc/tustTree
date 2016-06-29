@@ -101,6 +101,7 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
  - treeNode：JSON，被点击的节点JSON数据对象
 3. beforeclick事件  
  在options中指定相应的_beforeClick方法  
+
  ``` javascript
     function Event(event, treeId, treeNode) {
         if (treeId === '123') {
@@ -113,13 +114,14 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
  若指定了_beforeClick方法，且返回值为false，则_onClick不会执行
 4. oncomplete事件  
  在options中指定相应的_onComplete方法  
+ 
  ``` javascript
     function Event() {
         treeObj.expandAll(true);
     }
  ```
  非js标准事件对象，无event返回值，可以用来展开全部节点等操作
- 
+
 ## node数据
 以下为与后端交互的JSON数据相关属性：
 - Id：String，节点的guid
