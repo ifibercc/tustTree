@@ -54,7 +54,7 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
        // Array： 若后端的方法不固定，则可以为每个操作传入不同的地址,分别为[disUrl, addUrl, editUrl, removeUrl, dragUrl]
        // 如：['/bsOrganize/myDis', '/bsOrganize/myAdd', '/bsOrganize/myEdit', '/bsOrganize/myDel', '/bsOrganize/myDrag']
        btn: '111',
-       // String，默认值'000'，控制新增，编辑，删除三个按钮的显示，1代表显示，0代表隐藏
+       // String，默认值'000'，控制新增，编辑，删除三个按钮的显示，1代表显示，0代表隐藏，需要与每个节点的显示属性共同作用
        check: true,
        // Boolean，默认值false，控制是否显示节点的checkbox，true为显示
        relate: true,
@@ -125,6 +125,6 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
 - PId：String，父节点的guid
 - Url：String，节点的url属性
 - open： Boolean，是否展开节点，true为展开
-- addBtnFlag：Boolean，是否显示新增按钮，true为显示，优先级高于option中的btn值
-- editBtnFlag：Boolean，是否显示编辑按钮，true为显示，优先级高于option中的btn值
-- removeBtnFlag：Boolean，是否显示删除按钮，true为显示，优先级高于option中的btn值
+- addBtnFlag：Boolean，是否显示新增按钮，此值设置为true且option中第一位设置为'1'才会显示
+- editBtnFlag：Boolean，是否显示编辑按钮，此值设置为true且option中第一位设置为'1'才会显示
+- removeBtnFlag：Boolean，是否显示删除按钮，此值设置为true且option中第一位设置为'1'才会显示
