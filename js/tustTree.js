@@ -19,6 +19,23 @@ var tustTree = function (options) {
     var beforeClick = options._beforeClick || null;
     var onClick = options._onClick || null;
     var onCheck = options._onCheck || null;
+    /*edit by yang 2016年7月19日*/
+    var beforeDrop = _beforeDrop;
+    if (options._beforeDrop !== undefined && options._beforeDrop !== null) {
+        beforeDrop = options._beforeDrop;
+    } else{
+        beforeDrop = _beforeDrop;
+    }
+
+
+    var beforeDrag = _beforeDrag;
+    if (options._beforeDrag !== undefined && options._beforeDrag !== null) {
+        beforeDrag = options._beforeDrag;
+    } else{
+        beforeDrag = _beforeDrag;
+    }
+
+/*edit end*/
     // post请求参数
     var req = options.req || null;
     // 是否显示tree的checkbox
@@ -228,11 +245,11 @@ var tustTree = function (options) {
         });
     }
     // 判断是否允许拖拽
-    function beforeDrag(treeId, treeNodes) {
+    function _beforeDrag(treeId, treeNodes) {
         return drag;
     }
     // 拖拽完成的事件
-    function beforeDrop(treeId, treeNodes, targetNode, moveType) {
+    function _beforeDrop(treeId, treeNodes, targetNode, moveType) {
         $.post(dragUrl, {
             Id: treeNodes[0].Id,
             PId: targetNode.Id
