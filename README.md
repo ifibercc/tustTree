@@ -131,3 +131,16 @@ tustTree是基于ztree的封装，利用组合继承等方式使开发人员可�
 - addBtnFlag：Boolean，是否显示新增按钮，此值设置为true且option中第一位设置为'1'才会显示
 - editBtnFlag：Boolean，是否显示编辑按钮，此值设置为true且option中第一位设置为'1'才会显示
 - removeBtnFlag：Boolean，是否显示删除按钮，此值设置为true且option中第一位设置为'1'才会显示
+
+## 方法
+`treeObj.setNodeNameById(id, name)`
+
+如果有修改node名称的需求，通过这个tree方法根据id进行修改
+
+demo:
+
+```
+treeObj.setNodeNameById('17749870-41f1-49c1-b470-ade5dc799aff', '测试数据')
+```
+
+返回值，若修改成功返回true，未找到id或找到多个相同id则返回false

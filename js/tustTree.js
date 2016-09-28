@@ -268,8 +268,11 @@ tustTree.prototype.setNodeNameById = function (id, name) {
     var nodes = me.currentTree.getNodesByParam("Id", id, null);
     if (nodes.length > 0) {
         var node = nodes[0];
+        node.Name = name;
+        me.currentTree.refresh();
+        return true;
     }
-    node.Name = name;
-    me.currentTree.refresh();
+    return false;
+
 }
 tustTree.prototype.constructor = tustTree;
