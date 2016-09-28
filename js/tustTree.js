@@ -262,4 +262,14 @@ var tustTree = function (options) {
         return true;
     }
 };
+// 提供修改node名称的方法
+tustTree.prototype.setNodeNameById = function (id, name) {
+    var me = this;
+    var nodes = me.currentTree.getNodesByParam("Id", id, null);
+    if (nodes.length > 0) {
+        var node = nodes[0];
+    }
+    node.Name = name;
+    me.currentTree.refresh();
+}
 tustTree.prototype.constructor = tustTree;
